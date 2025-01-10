@@ -37,3 +37,19 @@ ol {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.active_question_panel {
+  @apply whitespace-pre-wrap;
+}
+
+.active_question_panel > table {
+  @apply text-sm;
+}
+
+.active_question_panel > table td {
+  @apply border border-gray-500 text-center;
+}
+
+.active_question_panel > table th {
+  @apply border border-gray-500 text-center;
+}

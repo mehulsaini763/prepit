@@ -5,7 +5,7 @@ import { Button } from '@material-tailwind/react';
 const QuestionPaperPanel = ({ setActivePanel }) => {
   const { test, activeSectionIndex } = useContext(TestContext);
   return (
-    <div className=" w-3/4 flex flex-col border border-gray-500 rounded-sm">
+    <div className="w-3/4 flex flex-col border border-gray-500 rounded-sm">
       <div className="h-full overflow-y-auto px-2 divide-y divide-gray-500">
         {test.sections[activeSectionIndex].questions.map((q, i) => (
           <div key={i}>

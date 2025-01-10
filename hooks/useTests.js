@@ -38,7 +38,7 @@ const useTests = () => {
   };
 
   const fetchTest = async (type) => {
-    const docRef = doc(db, 'sampleTests', type);
+    const docRef = doc(db, 'formats', type);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
   };

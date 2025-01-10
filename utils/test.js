@@ -33,7 +33,7 @@ const sectionDefaults = {
 
 export const createTest = async (token) => {
   try {
-    const test = await getDocument("sampleTests", token.testType);
+    const test = await getDocument("formats", token.testType);
 
     const timestamp = Timestamp.now();
 

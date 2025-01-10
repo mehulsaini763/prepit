@@ -1,14 +1,14 @@
-'use server';
+"use server";
 
-import { cookies } from 'next/headers';
-import crypto from 'crypto';
-import { SignJWT, jwtVerify } from 'jose';
+import { cookies } from "next/headers";
+import crypto from "crypto";
+import { SignJWT, jwtVerify } from "jose";
 
 const key = new TextEncoder().encode(process.env.SECRET_KEY);
 
 export async function encrypt(payload) {
   return await new SignJWT(payload)
-    .setProtectedHeader({ alg: 'HS256' })
+    .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(payload.expiresIn)
     .sign(key);
@@ -16,7 +16,7 @@ export async function encrypt(payload) {
 
 export async function decrypt(input) {
   const { payload } = await jwtVerify(input, key, {
-    algorithms: ['HS256'],
+    algorithms: ["HS256"],
   });
   return payload;
 }
@@ -27,7 +27,7 @@ export const getCookie = async (name) => {
     if (!session) return null;
     return await decrypt(session);
   } else {
-    console.log('Invalid Cookie Name');
+    console.log("Invalid Cookie Name");
     return false;
   }
 };
@@ -38,7 +38,7 @@ export const setCookie = async (name, data) => {
     cookies().set(name, value, { httpOnly: true });
     return true;
   } else {
-    console.log('Invalid Cookie Arguments');
+    console.log("Invalid Cookie Arguments");
     return false;
   }
 };
@@ -48,7 +48,7 @@ export const deleteCookie = async (name) => {
     cookies().delete(name);
     return true;
   } else {
-    console.log('Invalid Cookie Name');
+    console.log("Invalid Cookie Name");
     return false;
   }
 };
@@ -56,38 +56,46 @@ export const deleteCookie = async (name) => {
 export const decryptData = (request) => {
   const { data, iv, tag } = request;
 
-  const key = process.env.SECRET_KEY;
+  const key = crypto
+    .createHash("sha256")
+    .update(process.env.SECRET_KEY)
+    .digest(); // Ensure 32 bytes
+  const algorithm = "aes-256-gcm";
 
-  const algorithm = 'aes-256-gcm';
-
-  const decipher = crypto.createDecipheriv(algorithm, key, Buffer.from(iv, 'hex'));
-  decipher.setAuthTag(Buffer.from(tag, 'hex'));
+  const decipher = crypto.createDecipheriv(
+    algorithm,
+    key,
+    Buffer.from(iv, "hex")
+  );
+  decipher.setAuthTag(Buffer.from(tag, "hex"));
 
   try {
-    let decryptedData = decipher.update(data, 'hex', 'utf8');
-    decryptedData += decipher.final('utf8');
+    let decryptedData = decipher.update(data, "hex", "utf8");
+    decryptedData += decipher.final("utf8");
     return JSON.parse(decryptedData);
   } catch (error) {
-    res.status(400).json({ error: 'Invalid decryption data or key' });
+    throw new Error("Invalid decryption data or key");
   }
 };
 
 export const encryptData = async (request) => {
-  const key = process.env.SECRET_KEY;
-
-  const algorithm = 'aes-256-gcm';
+  const key = crypto
+    .createHash("sha256")
+    .update(process.env.SECRET_KEY)
+    .digest(); // Ensure 32 bytes
+  const algorithm = "aes-256-gcm";
 
   const iv = crypto.randomBytes(12);
 
   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  let encryptedData = cipher.update(JSON.stringify(request), 'utf8', 'hex');
-  encryptedData += cipher.final('hex');
+  let encryptedData = cipher.update(JSON.stringify(request), "utf8", "hex");
+  encryptedData += cipher.final("hex");
 
-  const tag = cipher.getAuthTag().toString('hex');
+  const tag = cipher.getAuthTag().toString("hex");
 
   return {
     data: encryptedData,
-    iv: iv.toString('hex'),
+    iv: iv.toString("hex"),
     tag: tag,
   };
 };

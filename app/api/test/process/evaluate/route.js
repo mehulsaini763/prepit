@@ -84,11 +84,11 @@ export async function POST(request) {
 
       const buffer = response.data.data;
 
-      await axios.post(`${process.env.BASE_URL}/api/test/process/mail`, {
-        userEmail: test.userEmail,
-        testId: test.testId,
-        buffer,
-      });
+      // await axios.post(`${process.env.BASE_URL}/api/test/process/mail`, {
+      //   userEmail: test.userEmail,
+      //   testId: test.testId,
+      //   buffer,
+      // });
     }
 
     const docRef = doc(db, "tests", "userTests", test.userId, test.testId);
@@ -108,7 +108,7 @@ export async function POST(request) {
       { status: 200 }
     );
   } catch (error) {
-    // log(error);
+    log(error.message);
     log("Test processing failed");
     return Response.json(
       { success: false, message: "Test processing failed" },
