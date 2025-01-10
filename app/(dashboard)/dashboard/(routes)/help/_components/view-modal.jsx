@@ -21,7 +21,7 @@ const ViewModal = ({ readQueries, updateQuery, query }) => {
   const handleDialog = () => setModal(!modal);
 
   const onSubmit = async () => {
-    const user = await getCookie('[BF USER]');
+    const user = await getCookie('[PI USER]');
     await updateQuery(query.id, {
       reOpenRequest: message,
       status: 'reOpened',

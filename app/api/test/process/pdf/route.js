@@ -942,7 +942,6 @@ export async function POST(request) {
     const test = await request.json();
 
     const buffer = await renderToBuffer(<PDF test={test} />);
-    await renderToFile(<PDF test={test} />, "./public/private/result.pdf");
     const storageRef = ref(
       storage,
       `users/${test.userId}/tests/${test.testId}`

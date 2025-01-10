@@ -19,7 +19,7 @@ const QueriesTable = () => {
   const matchMedia = useMediaQuery({ query: '(max-width:920px)' });
   useEffect(() => {
     (async () => {
-      const user = await getCookie('[BF USER]');
+      const user = await getCookie('[PI USER]');
       readQueries(user.email);
     })();
   }, []);

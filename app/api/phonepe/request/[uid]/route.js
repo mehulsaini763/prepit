@@ -41,7 +41,7 @@ export async function POST(request, searchParams) {
   try {
     const response = await axios({
       method: "post",
-      url: `${process.env.PHONEPE_API_BASE_URL}/pg/v1/pay`,
+      url: `${process.env.PHONEPE_BASE_URL}/pg/v1/pay`,
       data: { request: base64String },
 
       headers: {

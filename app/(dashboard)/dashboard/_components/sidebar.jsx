@@ -43,7 +43,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await deleteCookie("[BF USER]");
+    await deleteCookie("[PI USER]");
     await signOut(auth);
     handleDialog();
     router.push("/");

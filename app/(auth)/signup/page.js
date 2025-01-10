@@ -105,10 +105,10 @@ const SignUpPage = () => {
       const data = await getDocument("users", result.user.uid);
 
       if (data) {
-        await setCookie("[BF USER]", { ...data, expiresIn: "12h" });
+        await setCookie("[PI USER]", { ...data, expiresIn: "12h" });
       }
 
-      router.refresh();
+      window.location.assign("/dashboard/tests");
     } catch (error) {
       console.error(error);
       alert(error);

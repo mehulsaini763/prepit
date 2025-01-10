@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { db, storage } from '@/configs/firebase';
-import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';
+import { db, storage } from "@/configs/firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
 
-import axios from 'axios';
-import { getDownloadURL, ref } from 'firebase/storage';
+import axios from "axios";
+import { getDownloadURL, ref } from "firebase/storage";
 
 const useTests = () => {
   const [test, setTest] = useState(null);
@@ -17,16 +24,16 @@ const useTests = () => {
 
   const sectionTypes = [
     {
-      id: 'qa',
-      name: 'Quantitative Aptitude',
+      id: "qa",
+      name: "Quantitative Aptitude",
     },
     {
-      id: 'varc',
-      name: 'Verbal Ability & Reading Comprehension',
+      id: "varc",
+      name: "Verbal Ability & Reading Comprehension",
     },
     {
-      id: 'dilr',
-      name: 'Data Interpretation & Logical Reasoning',
+      id: "dilr",
+      name: "Data Interpretation & Logical Reasoning",
     },
   ];
 
@@ -38,18 +45,25 @@ const useTests = () => {
   };
 
   const fetchTest = async (type) => {
-    const docRef = doc(db, 'formats', type);
+    const docRef = doc(db, "formats", type);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
   };
 
-  const createTest = async (userId, userEmail, userName, type, section, topic) => {
+  const createTest = async (
+    userId,
+    userEmail,
+    userName,
+    type,
+    section,
+    topic
+  ) => {
     setCreating(true);
     setProgess(20);
 
     const test = await fetchTest(type);
 
-    const response = await axios('/api/timestamp', { method: 'GET' });
+    const response = await axios("/api/timestamp", { method: "GET" });
     const timestamp = response.data;
 
     test.id = `BFT${timestamp.seconds}`;
@@ -60,7 +74,9 @@ const useTests = () => {
 
     if (section) {
       test.sections[0].sectionId = section;
-      test.sections[0].sectionName = sectionTypes.find((v, i) => v.id == section).name;
+      test.sections[0].sectionName = sectionTypes.find(
+        (v, i) => v.id == section
+      ).name;
     }
 
     try {
@@ -69,7 +85,9 @@ const useTests = () => {
 
         const questions = [];
 
-        const querySnapshot = await getDocs(collection(db, section ? section : test.sections[i].sectionId));
+        const querySnapshot = await getDocs(
+          collection(db, section ? section : test.sections[i].sectionId)
+        );
         const length = querySnapshot.size;
 
         const caseletQuestions = [];
@@ -82,7 +100,9 @@ const useTests = () => {
             if (doc.data().isCaselet) {
               const caseletId = doc.data().caseletId;
 
-              const alreadyExist = caseletQuestions.find((question) => question.caseletId == caseletId);
+              const alreadyExist = caseletQuestions.find(
+                (question) => question.caseletId == caseletId
+              );
 
               if (alreadyExist) continue;
 
@@ -101,7 +121,10 @@ const useTests = () => {
         }
 
         //add random questions
-        while (questions.length < test.sections[i].totalQuestions - caseletQuestions.length) {
+        while (
+          questions.length <
+          test.sections[i].totalQuestions - caseletQuestions.length
+        ) {
           const randomIndex = Math.floor(Math.random() * length);
           const doc = querySnapshot.docs[randomIndex];
           if (!doc.data().isCaselet) {
@@ -134,8 +157,8 @@ const useTests = () => {
 
   const readTests = async (id) => {
     setReading(true);
-    const testsCollection = collection(db, 'tests', 'userTests', id);
-    const testsQueryRef = query(testsCollection, orderBy('createdAt', 'desc'));
+    const testsCollection = collection(db, "tests", "userTests", id);
+    const testsQueryRef = query(testsCollection, orderBy("createdAt", "desc"));
     const testsSnap = await getDocs(testsQueryRef);
     const tests = [];
     testsSnap.forEach((doc) => tests.push(doc.data()));
@@ -145,28 +168,21 @@ const useTests = () => {
 
   const downloadTest = async (userId, testId) => {
     try {
-      // Get the download URL
-      const url = await getDownloadURL(ref(storage, `users/${userId}/tests/${testId}`));
+      const url = await getDownloadURL(
+        ref(storage, `users/${userId}/tests/${testId}`)
+      );
 
-      // Fetch the file as a blob
-      const xhr = new XMLHttpRequest();
-      xhr.responseType = 'blob';
-      xhr.onload = (event) => {
-        const blob = xhr.response;
-
-        // Create a link element
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `${testId}.pdf`; // Set the desired file name
-        document.body.appendChild(link); // Append link to the body
-        link.click(); // Simulate a click to trigger the download
-        document.body.removeChild(link); // Clean up by removing the link
-        URL.revokeObjectURL(link.href); // Free up memory
-      };
-      xhr.open('GET', url);
-      xhr.send();
+      // Create a link element to download the file
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${testId}.pdf`;
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
     } catch (error) {
-      console.error('Error downloading PDF:', error);
+      console.error("Error downloading PDF:", error);
     }
   };
 

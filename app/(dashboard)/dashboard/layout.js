@@ -4,7 +4,7 @@ import Sidebar from "./_components/sidebar";
 import { redirect } from "next/navigation";
 
 const DashboardLayout = async ({ children }) => {
-  const user = await getCookie("[BF USER]");
+  const user = await getCookie("[PI USER]");
 
   if (user && !user.id) {
     redirect("/signin");

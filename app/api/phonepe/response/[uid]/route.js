@@ -32,7 +32,7 @@ export async function POST(request, { params }) {
 
   try {
     const response = await axios.get(
-      `${process.env.PHONEPE_API_BASE_URL}${endpoint}`,
+      `${process.env.PHONEPE_BASE_URL}${endpoint}`,
       {
         headers: {
           Accept: "*/*",

@@ -69,8 +69,8 @@ const SignInPage = () => {
           return;
         }
 
-        await setCookie("[BF USER]", { ...data, expiresIn: "12h" });
-        router.push("/dashboard/tests");
+        await setCookie("[PI USER]", { ...data, expiresIn: "12h" });
+        window.location.assign("/dashboard/tests");
       }
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -95,7 +95,7 @@ const SignInPage = () => {
           return;
         }
 
-        await setCookie("[BF USER]", { ...data, expiresIn: "12h" });
+        await setCookie("[PI USER]", { ...data, expiresIn: "12h" });
         router.push("/dashboard/tests");
       }
     } catch (error) {

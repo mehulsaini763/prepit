@@ -40,7 +40,7 @@ const QuerySetup = () => {
   const [query, setQuery] = useState(null);
 
   const onSubmit = async () => {
-    const user = await getCookie('[BF USER]');
+    const user = await getCookie('[PI USER]');
     await createQuery(user.fullName, user.email, selectedCategory, query);
     setSent(true);
     await readQueries(user.email);

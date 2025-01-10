@@ -20,7 +20,7 @@ const MyTestsPage = () => {
 
   useEffect(() => {
     (async () => {
-      const user = await getCookie("[BF USER]");
+      const user = await getCookie("[PI USER]");
       setUser(user);
     })();
   }, []);
