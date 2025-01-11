@@ -37,7 +37,7 @@ export const createTest = async (token) => {
 
     const timestamp = Timestamp.now();
 
-    test.testId = `BFT${timestamp.seconds}`;
+    test.testId = `PIT${timestamp.seconds}`;
     test.userId = token.userId;
     test.userEmail = token.userEmail;
     test.userName = token.userName;

@@ -66,7 +66,7 @@ const useTests = () => {
     const response = await axios("/api/timestamp", { method: "GET" });
     const timestamp = response.data;
 
-    test.id = `BFT${timestamp.seconds}`;
+    test.id = `PIT${timestamp.seconds}`;
     test.score = 0;
     test.userId = userId;
     test.userEmail = userEmail;

@@ -230,6 +230,11 @@ const SignInPage = () => {
               </Link>
             </CardFooter>
           </Card>
+          <div className="text-xs italic text-red-500">
+            <p className="font-bold">[NOTE] : Test User can use the following credentials</p>
+            <p>[email]: test@user.com</p>
+            <p>[password]: pass1234</p>
+          </div>
         </form>
       </div>
     </div>

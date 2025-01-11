@@ -16,7 +16,7 @@ const Footer = () => {
       >
         <div className="md:w-1/3 flex flex-col items-center">
           <div className="flex flex-col gap-4">
-            <Typography variant="h4">Basic Funda</Typography>
+            <Typography variant="h4">PrepIt!</Typography>
             <Typography variant="paragraph" className="leading-relaxed font-medium">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
               dolor eveniet tenetur ullam velit eos voluptas necessitatibus,

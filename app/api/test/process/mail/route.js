@@ -17,7 +17,7 @@ export async function POST(request) {
   const { userEmail, testId, buffer } = body;
 
   const mailOptions = {
-    from: '"Basic Funda" <noreply@basicfunda.letsnailthis.guru>',
+    from: '"PrepIt!" <noreply@basicfunda.letsnailthis.guru>',
     to: userEmail,
     subject: `${testId}: Test Results`,
     html: `These are your Test Results for the Test Id ${testId}`,

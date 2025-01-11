@@ -100,7 +100,7 @@ const matchMedia = useMediaQuery({query:'(max-width:920px)'})
     <>
       {/* Button to open the test setup modal */}
       <Button size="md" onClick={handleDialog}>
-        Take Test
+        Subscribe
       </Button>
 
       {/* Modal for test setup */}

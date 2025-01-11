@@ -19,6 +19,9 @@ module.exports = withMT({
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      animation: {
+        "spin-slow": "spin 3s linear infinite", // Adjust the duration (e.g., 'spin 3s' for slower)
+      },
     },
     screens: {
       md: "920px",

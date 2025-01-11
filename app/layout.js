@@ -5,7 +5,7 @@ import "@/app/globals.css";
 import MTProvider from "@/providers/MTProvider";
 
 export const metadata = {
-  title: "Basic Funda",
+  title: "PrepIt!",
   description: "One place to prepare your CAT",
 };
 

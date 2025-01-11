@@ -1,12 +1,14 @@
 "use client";
 
+import { deleteDocument } from "@/utils/db";
 import { deleteCookie, encryptData, getCookie, setCookie } from "@/utils/misc";
 import { createTest } from "@/utils/test";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 const CreationPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   useEffect(() => {
     (async () => {
       const token = await getCookie("token");
@@ -16,11 +18,14 @@ const CreationPage = () => {
         return;
       }
 
+      if (searchParams.get("user") == "test")
+        await deleteDocument("tests/userTests", token.userId);
+
       const data = await createTest(token);
 
       if (!data) {
         alert("No Questions Found");
-        router.push("/dashboard/tests");
+        return router.push("/dashboard/tests");
       }
 
       const test = await encryptData(data);

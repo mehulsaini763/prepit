@@ -13,7 +13,7 @@ const Header = () => {
     <div
       className={"flex justify-between items-center w-full max-w-6xl"}
     >
-      <span className="text-xl font-semibold">Basic Funda</span>
+      <span className="text-xl font-semibold">PrepIt!</span>
       <div className="hidden md:flex items-center justify-between gap-8">
         <Link
           className="text-gray-500 hover:text-gray-800 transition-colors duration-300"

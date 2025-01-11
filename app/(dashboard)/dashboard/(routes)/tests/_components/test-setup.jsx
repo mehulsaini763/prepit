@@ -53,7 +53,7 @@ const TestSetup = ({ user }) => {
 
   return (
     <>
-      <Button size="md" onClick={handleDialog}>
+      <Button size="md" className="shrink-0" onClick={handleDialog}>
         Take Test
       </Button>
 

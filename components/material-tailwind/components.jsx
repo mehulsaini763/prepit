@@ -21,6 +21,9 @@ import {
   Typography,
   Textarea,
   Tooltip,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
 } from "@material-tailwind/react";
 
 export {
@@ -44,4 +47,7 @@ export {
   Typography,
   Textarea,
   Tooltip,
+  Popover,
+  PopoverContent,
+  PopoverHandler,
 };

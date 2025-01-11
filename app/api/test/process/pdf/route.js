@@ -14,7 +14,7 @@ import {
   StyleSheet,
   Font,
   renderToBuffer,
-  renderToFile,
+  Tspan,
 } from "@react-pdf/renderer";
 
 import { createCanvas, registerFont } from "canvas";
@@ -43,283 +43,34 @@ Font.register({
   family: "Noto Black",
   src: "https://firebasestorage.googleapis.com/v0/b/letsnailit-pythonevaltest.appspot.com/o/fonts%2FNotoSans-Black.ttf?alt=media&token=9fcdd557-be8a-458c-a8aa-79898e65a76d",
 });
-Font.register({
-  family: "SourceCodePro Regular",
-  src: "https://firebasestorage.googleapis.com/v0/b/letsnailit-pythonevaltest.appspot.com/o/fonts%2FSourceCodePro-Regular.ttf?alt=media&token=f55315db-465c-40df-9fca-59b729dab4d7",
-});
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: "#1e88e5",
-    fontFamily: "Noto Regular",
+    paddingVertical: 16,
+    gap: 16,
+    textAlign: "center",
   },
   header: {
-    textAlign: "center",
-    marginVertical: 16,
-    paddingVertical: 4,
-    backgroundColor: "white",
-  },
-  headerText: {
-    color: "#1e88e5",
-    fontSize: 56,
-    fontFamily: "Noto Bold",
-    letterSpacing: 4,
+    backgroundColor: "#eeeeee",
+    fontSize: 36,
+    fontFamily: "Noto Black",
+    padding: 8,
   },
   body: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    gap: 16,
-    marginVertical: 16,
-    marginHorizontal: 40,
+    gap: 32,
+    paddingVertical: 32,
+    paddingHorizontal: 40,
+    justifyContent: "center",
   },
-  page1: {
-    section1: {
-      color: "white",
-      fontSize: 20,
-      fontFamily: "Noto Regular",
-      marginVertical: 8,
-      lineHeight: 1.5,
-      textAlign: "center",
-    },
-    section2: {
-      heading: {
-        fontSize: 36,
-        fontFamily: "Noto Bold",
-      },
-      content: {
-        fontSize: 24,
-        fontFamily: "Noto Regular",
-        lineHeight: 1.5,
-      },
-      paddingHorizontal: 16,
-    },
-    section3: {
-      fontSize: 12,
-      fontFamily: "Noto Regular",
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-around",
-      gap: 32,
-      paddingVertical: 32,
-    },
-  },
-  page2: {
-    body: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      marginVertical: 16,
-      marginHorizontal: 40,
-      gap: 32,
-    },
-    headerText: {
-      color: "#1e88e5",
-      fontSize: 46,
-      fontFamily: "Noto Bold",
-    },
-    section: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 16,
-    },
-    subSection: {
-      display: "flex",
-      flexDirection: "row",
-      gap: 32,
-      alignItems: "center",
-    },
-    subSubSection: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 16,
-    },
-    heading: {
-      backgroundColor: "black",
-      borderRadius: 4,
-      color: "white",
-      fontSize: 20,
-      fontFamily: "Noto Bold",
-      paddingVertical: 4,
-      paddingHorizontal: 8,
-    },
-    score: {
-      color: "white",
-      fontSize: 56,
-      fontFamily: "Noto Bold",
-    },
-    chart_image: {
-      width: 200,
-      height: 200,
-    },
-  },
-  sectionPage: {
-    header: {
-      marginVertical: 16,
-      paddingVertical: 4,
-      paddingHorizontal: 32,
-      backgroundColor: "black",
-    },
-    headerText: {
-      color: "white",
-      fontSize: 24,
-      fontFamily: "Noto Bold",
-    },
-    body: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "space-between",
-      gap: 32,
-      marginVertical: 16,
-      marginHorizontal: 40,
-    },
-    section1: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: 32,
-    },
-    subSection1: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: 32,
-    },
-    subSection2: {
-      backgroundColor: "#aed581",
-      fontSize: 12,
-      padding: 8,
-      borderRadius: 4,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: 4,
-    },
-    chart_image: {
-      width: 150,
-      height: 150,
-    },
-    label_icon: {
-      paddingVertical: 8,
-      paddingHorizontal: 20,
-      border: 1,
-      borderColor: "black",
-      borderStyle: "solid",
-    },
-    label_text: {
-      color: "white",
-      fontFamily: "Noto Bold",
-      fontSize: 12,
-    },
-  },
-  chart_section: {},
-  chart_image: {
-    height: 250,
-  },
-  label_section: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    gap: 16,
-  },
-  label_item: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 16,
-  },
-  label_icon: {
-    paddingVertical: 12,
-    paddingHorizontal: 28,
-    border: 1,
-    borderColor: "black",
-    borderStyle: "solid",
-  },
-  label_text: {
-    color: "white",
-    fontFamily: "Noto Bold",
-    fontSize: 16,
-  },
-  questionPageHeader: {
-    marginVertical: 16,
-    paddingVertical: 4,
-    paddingHorizontal: 32,
-    backgroundColor: "black",
-  },
-
-  questionPageHeaderText: {
-    color: "white",
-    fontSize: 24,
-    fontFamily: "Noto Bold",
-  },
-
-  questionPageBody: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    gap: 16,
-    marginVertical: 16,
-    marginHorizontal: 40,
-  },
-  questionSection: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 16,
-    paddingBottom: 16,
-  },
-  questionNumberContainer: {
-    backgroundColor: "#aed581",
-    fontFamily: "Noto Regular",
-    fontSize: 12,
-    padding: 4,
-    borderRadius: 4,
-  },
-  questionDetailsContainer: {
-    gap: 16,
-    fontFamily: "Noto Bold",
-    width: "100%",
-    color: "white",
-  },
-  question: { fontSize: 12 },
-  explanationHeading: { fontSize: 12 },
-  explanation: { fontSize: 12 },
-  optionConatiner: {
-    gap: 4,
-  },
-  option: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    color: "black",
-    fontFamily: "Noto Regular",
-    borderRadius: 4,
-    padding: 4,
-    gap: 8,
-    backgroundColor: "#eeeeee",
-    width: "70%",
-  },
-  optionText: { fontSize: 12 },
-  optionIconLeft: {
-    backgroundColor: "white",
-    borderRadius: 100,
-    paddingHorizontal: 4,
-    fontSize: 12,
-  },
-  optionIconRight: {},
-
   footer: {
-    backgroundColor: "white",
-    color: "#1e88e5",
+    backgroundColor: "#eeeeee",
+    textAlign: "right",
+    color: "#2196f3",
     paddingHorizontal: 12,
-    paddingVertical: 4,
-    marginTop: "auto",
+    paddingVertical: 6,
     fontFamily: "Noto Bold",
     fontSize: 12,
+    marginTop: "auto",
   },
   watermark: {
     position: "absolute",
@@ -333,10 +84,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    transform: "rotate(-45deg)",
-    color: "rgba(255,255,255,0.25)",
-    fontFamily: "Noto Black",
     textAlign: "center",
+    transform: "rotate(-45deg)",
+    color: "#eeeeee",
+    fontFamily: "Noto Black",
   },
 });
 
@@ -445,9 +196,9 @@ const generatePieChartWithLabel = async (topics, questions) => {
               context.chart.data.labels[context.dataIndex]
             }\n ${value}%`;
           },
-          color: "white",
           align: "end",
           anchor: "end",
+          color: "black",
           font: {
             size: 24,
             weight: "bold",
@@ -511,7 +262,7 @@ const generateBarChart = async (topics, questions) => {
         },
         {
           data: notAttempted,
-          backgroundColor: "#fafafa",
+          backgroundColor: "#eeeeee",
           barThickness: 30,
         },
       ],
@@ -522,15 +273,14 @@ const generateBarChart = async (topics, questions) => {
       scales: {
         x: {
           grid: {
-            color: "white",
             borderColor: "grey",
             tickColor: "grey",
           },
           border: {
-            color: "white",
+            color: "black",
           },
           ticks: {
-            color: "white",
+            color: "black",
             font: {
               family: "Noto Sans",
               weight: "bold",
@@ -543,10 +293,10 @@ const generateBarChart = async (topics, questions) => {
           labels: labels,
           stacked: true,
           border: {
-            color: "white",
+            color: "black",
           },
           ticks: {
-            color: "white",
+            color: "black",
             font: {
               family: "Noto Sans",
               weight: "bold",
@@ -570,368 +320,383 @@ const generateBarChart = async (topics, questions) => {
   return chart.toBase64Image();
 };
 
-const PDF = ({ test }) => {
-  const colors = [
+const PDF = ({ test }) => (
+  <Document>
+    <CoverPage test={test} />
+    <AllSectionReportPage sections={test.sections} />
+    <PerSectionReportPage sections={test.sections} />
+  </Document>
+);
+
+const CoverPage = ({ test }) => {
+  const thisStyles = StyleSheet.create({
+    header: {
+      fontFamily: "Noto Black",
+      color: "#2196f3",
+    },
+    heading: {
+      fontSize: 36,
+      fontFamily: "Noto Black",
+      marginVertical: 8,
+    },
+    description: { fontSize: 18 },
+  });
+
+  return (
+    <Page wrap={false} size={"A4"} style={styles.page}>
+      {/* WATERMARK */}
+      <View fixed style={styles.watermark}>
+        <Text>PrepIt!</Text>
+      </View>
+      {/* HEADER */}
+      <Text style={[styles.header, thisStyles.header]}>PREPIT!</Text>
+      {/* BODY */}
+      <View style={[thisStyles, styles.body]}>
+        <Text style={thisStyles.description}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </Text>
+        <Text style={thisStyles.heading}>Mock Test Report</Text>
+        <Text>{`${test.userName}\n${test.userEmail}`}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 16,
+          }}
+        >
+          {/* CHART */}
+          <View style={{ width: "50%" }}>
+            <Image
+              src={async () =>
+                await generatePieChartWithoutLabel(
+                  [
+                    test.totalCorrect,
+                    test.totalIncorrect,
+                    test.totalNotAttempted,
+                  ],
+                  ["#2196f3", "#9e9e9e", "#212121"]
+                )
+              }
+              style={{ width: 200, height: 200 }}
+            />
+          </View>
+          <View
+            style={{
+              gap: 16,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {/* LABELS */}
+            <Score text={`${test.totalScore}/${test.totalMarks}`} />
+            <Labels
+              items={[
+                { color: "#2196f3", text: "Correct Attempted" },
+                { color: "#9e9e9e", text: "Incorrect Attempted" },
+                { color: "#212121", text: "Not Attempted" },
+              ]}
+            />
+          </View>
+        </View>
+      </View>
+      {/* FOOTER */}
+      <Text
+        fixed
+        style={styles.footer}
+        render={({ pageNumber, totalPages }) =>
+          `Page ${pageNumber} of ${totalPages}`
+        }
+      />
+    </Page>
+  );
+};
+
+const AllSectionReportPage = ({ sections }) => {
+  const thisStyles = StyleSheet.create({
+    section: {
+      heading: { fontSize: 24, fontFamily: "Noto Bold" },
+      body: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 32,
+      },
+    },
+  });
+  const data = [
     {
-      id: "qa",
       colors: ["#aed581", "#7cb342", "#33691e"],
+      items: [
+        { color: "#aed581", text: "Attempted" },
+        { color: "#7cb342", text: "" },
+      ],
     },
     {
-      id: "varc",
       colors: ["#ffb74d", "#fb8c00", "#e65100"],
+      items: [
+        { color: "#ffb74d", text: "Attempted" },
+        { color: "#fb8c00", text: "Not Attempted" },
+      ],
     },
     {
-      id: "dilr",
       colors: ["#ce93d8", "#9c27b0", "#4a148c"],
+      items: [
+        { color: "#ce93d8", text: "Attempted" },
+        { color: "#9c27b0", text: "Not Attempted" },
+      ],
     },
   ];
-  const options = ["A", "B", "C", "D"];
   return (
-    <Document>
-      {/* PAGE1 */}
-      <Page wrap={false} size="A4" style={styles.page}>
+    <Page wrap={false} size="A4" style={styles.page}>
+      <View fixed style={styles.watermark}>
+        <Text>PrepIt!</Text>
+      </View>
+      <Text style={styles.header}>SECTION WISE REPORT</Text>
+      <View style={styles.body}>
+        {sections.map((section, i) => (
+          <View key={section.sectionId} style={{ gap: 16 }}>
+            <Text style={thisStyles.section.heading}>
+              {section.sectionName}
+            </Text>
+            <View style={thisStyles.section.body}>
+              <View>
+                <Image
+                  src={async () =>
+                    await generatePieChartWithoutLabel(
+                      [section.totalAttempted, section.totalNotAttempted],
+                      data[i].colors
+                    )
+                  }
+                  style={{ width: 150, height: 150 }}
+                />
+              </View>
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Score
+                  text={`${section.totalAttempted}/${section.totalQuestions}`}
+                />
+                <Labels items={data[i].items} />
+              </View>
+            </View>
+          </View>
+        ))}
+      </View>
+      <Text
+        fixed
+        style={styles.footer}
+        render={({ pageNumber, totalPages }) =>
+          `Page ${pageNumber} of ${totalPages}`
+        }
+      />
+    </Page>
+  );
+};
+
+const PerSectionReportPage = ({ sections }) => {
+  const thisStyles = {
+    header: { fontSize: 24 },
+  };
+  const colors = [
+    ["#aed581", "#7cb342", "#33691e"],
+    ["#ffb74d", "#fb8c00", "#e65100"],
+    ["#ce93d8", "#9c27b0", "#4a148c"],
+  ];
+  return sections.map((section, i) => (
+    <>
+      <Page
+        key={section.sectionName + "Summary"}
+        wrap={false}
+        size="A4"
+        style={styles.page}
+      >
         <View fixed style={styles.watermark}>
-          <Text>Basic Funda</Text>
+          <Text>PrepIt!</Text>
         </View>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>BASIC FUNDA</Text>
-        </View>
+        <Text style={[styles.header, thisStyles.header]}>
+          {section.sectionName}
+        </Text>
         <View style={styles.body}>
-          <View style={styles.page1.section1}>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </Text>
-          </View>
-          <View style={styles.page1.section2}>
-            <Text style={styles.page1.section2.heading}>
-              Mock Test Mini Report
-            </Text>
-            <Text
-              style={styles.page1.section2.content}
-            >{`Name: ${test.userName}\nE-mail: ${test.userEmail}\nScore: ${test.totalScore}/${test.totalMarks}`}</Text>
-          </View>
-          <View style={styles.page1.section3}>
-            <View style={styles.page1.section3.chart_section}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "center", gap: 16 }}
+          >
+            <View>
               <Image
                 src={async () =>
                   await generatePieChartWithoutLabel(
                     [
-                      test.totalCorrect,
-                      test.totalIncorrect,
-                      test.totalNotAttempted,
+                      section.totalCorrect,
+                      section.totalIncorrect,
+                      section.totalNotAttempted,
                     ],
-                    ["#fafafa", "#9e9e9e", "#212121"]
+                    colors[i]
                   )
                 }
-                style={styles.page1.section3.chart_image}
+                style={{ width: 200, height: 200 }}
               />
             </View>
-            <View style={styles.label_section}>
-              <View style={styles.label_item}>
-                <View
-                  style={[styles.label_icon, { backgroundColor: "#fafafa" }]}
-                />
-                <Text style={styles.label_text}>Correct Attempted</Text>
-              </View>
-              <View style={styles.label_item}>
-                <View
-                  style={[styles.label_icon, { backgroundColor: "#9e9e9e" }]}
-                />
-                <Text style={styles.label_text}>Incorrect Attempted</Text>
-              </View>
-              <View style={styles.label_item}>
-                <View
-                  style={[styles.label_icon, { backgroundColor: "#212121" }]}
-                />
-                <Text style={styles.label_text}>Not Attempted</Text>
-              </View>
+            <View style={{ justifyContent: "center", alignContent: "center" }}>
+              <Score
+                text={`${section.totalCorrect}/${section.totalQuestions}`}
+              />
+              <Labels
+                items={[
+                  { color: colors[i][0], text: "Correct" },
+                  { color: colors[i][1], text: "Incorrect" },
+                  { color: colors[i][2], text: "Not Attempted" },
+                ]}
+              />
             </View>
           </View>
+          <View>
+            <Image
+              src={async () =>
+                await generatePieChartWithLabel(
+                  section.topics,
+                  section.questions
+                )
+              }
+            />
+          </View>
+          <View>
+            <Image
+              style={styles.chart_image}
+              src={async () =>
+                await generateBarChart(section.topics, section.questions)
+              }
+            />
+          </View>
         </View>
-        <View fixed style={styles.footer}>
-          <Text
-            render={({ pageNumber, totalPages }) =>
-              `Page ${pageNumber} of ${totalPages}`
-            }
-          />
-        </View>
+        <Text
+          fixed
+          style={styles.footer}
+          render={({ pageNumber, totalPages }) =>
+            `Page ${pageNumber} of ${totalPages}`
+          }
+        />
       </Page>
-      {/* PAGE2 */}
-      <Page wrap={false} size="A4" style={styles.page}>
-        <View fixed style={styles.watermark}>
-          <Text>Basic Funda</Text>
-        </View>
-        <View style={styles.header}>
-          <Text style={styles.page2.headerText}>SECTION WISE REPORT</Text>
-        </View>
-        <View style={styles.page2.body}>
-          {test.sections.map((section) => {
-            const colorOptions = colors.find(
-              (obj) => obj.id == section.sectionId
-            ).colors;
-            return (
-              <View key={section.sectionName} style={styles.page2.section}>
-                <Text style={styles.page2.heading}>{section.sectionName}</Text>
-                <View style={styles.page2.subSection}>
-                  <View style={styles.page2.chartSection}>
-                    <Image
-                      style={styles.page2.chart_image}
-                      src={async () =>
-                        await generatePieChartWithoutLabel(
-                          [section.totalAttempted, section.totalNotAttempted],
-                          colorOptions
-                        )
-                      }
-                    />
-                  </View>
-                  <View style={styles.page2.subSubSection}>
-                    <Text style={styles.page2.score}>
-                      {section.totalAttempted}/{section.totalQuestions}
-                    </Text>
-                    <View style={styles.label_section}>
-                      <View style={styles.label_item}>
-                        <View
-                          style={[
-                            styles.label_icon,
-                            { backgroundColor: colorOptions[0] },
-                          ]}
-                        />
-                        <Text style={styles.label_text}>Attempted</Text>
-                      </View>
-                      <View style={styles.label_item}>
-                        <View
-                          style={[
-                            styles.label_icon,
-                            { backgroundColor: colorOptions[1] },
-                          ]}
-                        />
-                        <Text style={styles.label_text}>Not Attempted</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            );
-          })}
-        </View>
-        <View fixed style={styles.footer}>
-          <Text
-            render={({ pageNumber, totalPages }) =>
-              `Page ${pageNumber} of ${totalPages}`
-            }
-          />
-        </View>
-      </Page>
-      {/* DYNAMIC PAGES */}
-      {test.sections.map((section) => {
-        const colorOptions = colors.find(
-          (obj) => obj.id == section.sectionId
-        ).colors;
-        return (
-          <>
-            <Page
-              key={section.sectionName + "Summary"}
-              wrap={false}
-              size="A4"
-              style={styles.page}
+      <QuestionsPage key={section.sectionName} section={section} />
+    </>
+  ));
+};
+
+const QuestionsPage = ({ section }, i) => {
+  const options = ["A", "B", "C", "D"];
+  const thisStyles = {
+    header: { fontSize: 24 },
+  };
+  return (
+    <Page
+      key={section.sectionName + "Questions"}
+      break={false}
+      size="A4"
+      style={styles.page}
+    >
+      <View fixed style={styles.watermark}>
+        <Text>PrepIt</Text>
+      </View>
+      <Text fixed style={[styles.header, thisStyles.header]}>
+        {section.sectionName}
+      </Text>
+      <View style={[styles.body, { justifyContent: "space-around" }]}>
+        {section.questions.map((question, i) => (
+          <View
+            key={question.question + i}
+            wrap={false}
+            style={{ flexDirection: "row", gap: 16, fontSize: 14 }}
+          >
+            <Text style={{ fontFamily: "Noto Bold" }}>Q{i + 1}</Text>
+            <View
+              style={{
+                gap: 16,
+                textAlign: "left",
+                overflow: "hidden",
+                width: "100%",
+              }}
             >
-              <View fixed style={styles.watermark}>
-                <Text>Basic Funda</Text>
-              </View>
-              <View style={styles.sectionPage.header}>
-                <Text style={styles.sectionPage.headerText}>
-                  {section.sectionName}
-                </Text>
-              </View>
-              <View style={styles.sectionPage.body}>
-                <View style={styles.sectionPage.section1}>
-                  <View style={styles.sectionPage.subSection1}>
-                    <View>
-                      <Image
-                        style={styles.sectionPage.chart_image}
-                        src={async () =>
-                          await generatePieChartWithoutLabel(
-                            [
-                              section.totalCorrect,
-                              section.totalIncorrect,
-                              section.totalNotAttempted,
-                            ],
-                            colorOptions
-                          )
-                        }
-                      />
-                    </View>
-                    <View>
-                      <Text
-                        style={{
-                          fontSize: 24,
-                          fontFamily: "Noto Bold",
-                          color: "white",
-                        }}
-                      >{`${section.totalCorrect}/${section.totalQuestions}`}</Text>
-                      <View style={styles.label_section}>
-                        <View style={styles.label_item}>
-                          <View
-                            style={[
-                              styles.sectionPage.label_icon,
-                              { backgroundColor: colorOptions[0] },
-                            ]}
-                          />
-                          <Text style={styles.sectionPage.label_text}>
-                            Correct
-                          </Text>
-                        </View>
-                        <View style={styles.label_item}>
-                          <View
-                            style={[
-                              styles.sectionPage.label_icon,
-                              { backgroundColor: colorOptions[1] },
-                            ]}
-                          />
-                          <Text style={styles.sectionPage.label_text}>
-                            Wrong
-                          </Text>
-                        </View>
-                        <View style={styles.label_item}>
-                          <View
-                            style={[
-                              styles.sectionPage.label_icon,
-                              { backgroundColor: colorOptions[2] },
-                            ]}
-                          />
-                          <Text style={styles.sectionPage.label_text}>
-                            Not Attempted
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={styles.sectionPage.subSection2}>
-                    <Text>Total Questions : {section.totalQuestions}</Text>
-                    <Text>Attempted : {section.totalAttempted}</Text>
-                    <Text>Correct Answer : {section.totalCorrect}</Text>
-                    <Text>Wrong Answer : {section.totalIncorrect}</Text>
-                  </View>
-                </View>
-                <View>
-                  <Image
-                    style={{ width: 500, height: 500 }}
-                    src={async () =>
-                      await generatePieChartWithLabel(
-                        section.topics,
-                        section.questions
-                      )
-                    }
-                  />
-                </View>
-                <View>
-                  <Image
-                    style={styles.chart_image}
-                    src={async () =>
-                      await generateBarChart(section.topics, section.questions)
-                    }
-                  />
-                </View>
-              </View>
-              <View fixed style={styles.footer}>
-                <Text
-                  render={({ pageNumber, totalPages }) =>
-                    `Page ${pageNumber} of ${totalPages}`
-                  }
-                />
-              </View>
-            </Page>
-            <Page
-              key={section.sectionName + "Questions"}
-              break={false}
-              size="A4"
-              style={styles.page}
-            >
-              <View fixed style={styles.watermark}>
-                <Text>Basic Funda</Text>
-              </View>
-              <View fixed style={styles.questionPageHeader}>
-                <Text style={styles.questionPageHeaderText}>
-                  {section.sectionName}
-                </Text>
-              </View>
-              <View style={styles.questionPageBody}>
-                {section.questions.map((question, i) => (
+              <Text style={{ flexDirection: "row", fontFamily: "Noto Bold" }}>
+                {question.question}
+                <Tspan style={{ fontSize: 12 }}>
+                  {question.chosenOption == -1 && " (Not Attempted)"}
+                </Tspan>
+              </Text>
+              <View style={{ gap: 4 }}>
+                {question.options.map((option, i) => (
                   <View
-                    key={question.question}
-                    wrap={false}
-                    style={styles.questionSection}
+                    key={option}
+                    style={[
+                      {
+                        flexDirection: "row",
+                        backgroundColor: "#f5f5f5",
+                        borderRadius: 4,
+                        padding: 8,
+                        gap: 8,
+                        fontSize: 14,
+                      },
+                      i + 1 == question.chosenOption &&
+                        question.chosenOption != question.correctOption && {
+                          backgroundColor: "#ef9a9a",
+                        },
+                      i + 1 == question.correctOption && {
+                        backgroundColor: "#c5e1a5",
+                      },
+                    ]}
                   >
-                    <View>
-                      <Text style={styles.questionNumberContainer}>
-                        Q{i + 1}
-                      </Text>
-                    </View>
-                    <View style={styles.questionDetailsContainer}>
-                      <Text>
-                        {question.question}
-                        <Text style={styles.question}>
-                          {question.chosenOption == -1 && " (Not Attempted)"}
-                        </Text>
-                      </Text>
-                      <View style={styles.optionConatiner}>
-                        {question.options.map((option, i) => (
-                          <View
-                            key={option}
-                            style={[
-                              styles.option,
-                              i + 1 == question.chosenOption &&
-                                question.chosenOption !=
-                                  question.correctOption && {
-                                  backgroundColor: "#e57373",
-                                },
-                              i + 1 == question.correctOption && {
-                                backgroundColor: "#aed581",
-                              },
-                            ]}
-                          >
-                            <View
-                              style={[
-                                styles.optionIconLeft,
-                                i + 1 == question.chosenOption &&
-                                  question.chosenOption !=
-                                    question.correctOption && {
-                                    backgroundColor: "#f44336",
-                                  },
-                                i + 1 == question.correctOption && {
-                                  backgroundColor: "#8bc34a",
-                                },
-                              ]}
-                            >
-                              <Text>{options[i]}</Text>
-                            </View>
-                            <Text style={styles.optionText}>{option}</Text>
-                          </View>
-                        ))}
-                      </View>
-                      <View>
-                        <Text>Explanation</Text>
-                        <Text>{question.explanation}</Text>
-                      </View>
-                    </View>
+                    <Text>{options[i]}</Text>
+                    <Text style={styles.optionText}>{option}</Text>
                   </View>
                 ))}
               </View>
-              <View fixed style={styles.footer}>
-                <Text
-                  render={({ pageNumber, totalPages }) =>
-                    `Page ${pageNumber} of ${totalPages}`
-                  }
-                />
+              <View>
+                <Text style={{ fontFamily: "Noto Bold" }}>Explanation</Text>
+                <Text>{question.explanation}</Text>
               </View>
-            </Page>
-          </>
-        );
-      })}
-    </Document>
+            </View>
+          </View>
+        ))}
+      </View>
+      <Text
+        fixed
+        style={styles.footer}
+        render={({ pageNumber, totalPages }) =>
+          `Page ${pageNumber} of ${totalPages}`
+        }
+      />
+    </Page>
+  );
+};
+
+const Score = ({ text }) => (
+  <Text style={{ fontSize: 56, fontFamily: "Noto Bold" }}>{text}</Text>
+);
+
+const Labels = ({ items }) => {
+  const thisStyles = {
+    labels: {
+      gap: 16,
+      item: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        icon: { width: 48, height: 24 },
+        text: { fontSize: 18 },
+      },
+    },
+  };
+
+  return (
+    <View style={thisStyles.labels}>
+      {items.map(({ color, text }) => (
+        <View key={color} style={thisStyles.labels.item}>
+          <View
+            style={[thisStyles.labels.item.icon, { backgroundColor: color }]}
+          />
+          <Text style={thisStyles.labels.item.text}>{text}</Text>
+        </View>
+      ))}
+    </View>
   );
 };
 
@@ -940,6 +705,8 @@ export async function POST(request) {
     log("##### PDF Generation request received #####");
 
     const test = await request.json();
+
+    // await renderToFile(<PDF test={test} />, "./public/private/result.pdf");
 
     const buffer = await renderToBuffer(<PDF test={test} />);
     const storageRef = ref(
@@ -955,7 +722,7 @@ export async function POST(request) {
       { status: 200 }
     );
   } catch (error) {
-    log(error);
+    log(error.message);
     log("##### PDF generation failed #####");
     return Response.json(
       { success: false, message: "PDF Generation Failed" },

@@ -137,7 +137,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      {/* <Typography variant="h5" color="blue-gray">
+      <Typography variant="h5" color="blue-gray">
         Subscription
       </Typography>
       <Typography variant="small" className="text-gray-600 font-normal">
@@ -184,7 +184,7 @@ const ProfilePage = () => {
             </div>
           </div>
         )}
-      </div> */}
+      </div>
       {provider != "google.com" && (
         <>
           <Typography variant="h5" color="blue-gray">

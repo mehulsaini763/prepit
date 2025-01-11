@@ -25,7 +25,7 @@ const useQueries = () => {
     setCreating(true);
     const timestamp = (await axios('/api/timestamp')).data;
 
-    await setDoc(doc(db, 'queries', `BFQ${timestamp.seconds}`), {
+    await setDoc(doc(db, 'queries', `PIQ${timestamp.seconds}`), {
       category: category,
       createdAt: serverTimestamp(),
       openRequest: query,

@@ -194,7 +194,7 @@ const TestsTable = ({ user }) => {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      {test.isProcessed &&
+                      {test.isProcessed ? (
                         (test.testType == "mockMini" ||
                           test.testType == "mockFull") && (
                           <IconButton
@@ -207,7 +207,17 @@ const TestsTable = ({ user }) => {
                           >
                             <ArrowDownTrayIcon className="h-5 w-5" />
                           </IconButton>
-                        )}
+                        )
+                      ) : (
+                        <Tooltip content="Test is Processing. Try Reloading the page">
+                          <IconButton size="sm" color="blue" variant="text">
+                            <Spinner
+                              color="blue"
+                              className="!animate-spin-slow"
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                     </td>
                   </tr>
                 );

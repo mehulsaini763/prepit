@@ -6,10 +6,10 @@ import { redirect } from "next/navigation";
 const DashboardLayout = async ({ children }) => {
   const user = await getCookie("[PI USER]");
 
-  if (user && !user.id) {
+  if (!user && !user?.id) {
     redirect("/signin");
   }
-  
+
   return (
     <div className="flex flex-col h-screen">
       <Header />
