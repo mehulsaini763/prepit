@@ -42,7 +42,7 @@ const SubmissionPage = () => {
       <div>
         <Button
           className="rounded-sm hover:shadow-none"
-          onClick={() => router.push("/dashboard/tests")}
+          onClick={() => window.location.assign("/dashboard/tests")}
         >
           Go to dashboard
         </Button>

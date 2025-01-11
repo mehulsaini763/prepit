@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteDocument } from "@/utils/db";
+import { deleteDocuments, getData } from "@/utils/db-new";
 import { deleteCookie, encryptData, getCookie, setCookie } from "@/utils/misc";
 import { createTest } from "@/utils/test";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,8 +18,12 @@ const CreationPage = () => {
         return;
       }
 
-      if (searchParams.get("user") == "test")
-        await deleteDocument("tests/userTests", token.userId);
+      if (searchParams.get("user") == "test") {
+        const { docs } = await getData({
+          path: ["tests", "userTests", token.userId],
+        });
+        await deleteDocuments(["tests", "userTests", token.userId], docs);
+      }
 
       const data = await createTest(token);
 
