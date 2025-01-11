@@ -46,7 +46,7 @@ const menu = () => {
   const handleLogout = async () => {
     handleDialog();
     await signOut(auth);
-    router.push("/");
+    window.location.assign;
   };
 
   const buttonClass = "flex items-center gap-4 text-base";

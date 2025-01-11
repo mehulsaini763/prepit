@@ -46,7 +46,7 @@ const Sidebar = () => {
     await deleteCookie("[PI USER]");
     await signOut(auth);
     handleDialog();
-    router.push("/");
+    window.location.assign("/");
   };
 
   const buttonClass = "flex items-center gap-2 text-sm md:gap-4";
