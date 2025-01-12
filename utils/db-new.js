@@ -14,10 +14,9 @@ import {
   startAfter,
   runTransaction,
   onSnapshot,
+  serverTimestamp,
 } from "@firebase/firestore";
 import { db } from "@/configs/firebase.js";
-
-const getDate = () => Date.now();
 
 export const getDocument = async (path, id) => {
   const docRef = Array.isArray(path) ? doc(db, ...path, id) : doc(db, path, id);
@@ -46,7 +45,7 @@ export const getDocuments = async (path, { field = "id", values }) => {
 
 export const setDocument = async (path, id, data, timestamp = null) => {
   try {
-    const docData = timestamp ? { ...data, [timestamp]: getDate() } : data;
+    const docData = timestamp ? { ...data, [timestamp]: serverTimestamp() } : data;
     const docRef = Array.isArray(path)
       ? doc(db, ...path, id)
       : doc(db, path, id);
@@ -63,7 +62,7 @@ export const setDocuments = async (path, documents, timestamp = null) => {
     await runTransaction(db, async (transaction) => {
       documents.forEach((document) => {
         const docData = timestamp
-          ? { ...document, [timestamp]: getDate() }
+          ? { ...document, [timestamp]: serverTimestamp() }
           : document;
         const docRef = Array.isArray(path)
           ? doc(db, ...path, document.id || document.uid)
@@ -80,7 +79,7 @@ export const setDocuments = async (path, documents, timestamp = null) => {
 
 export const updateDocument = async (path, id, data, timestamp = null) => {
   try {
-    const docData = timestamp ? { ...data, [timestamp]: getDate() } : data;
+    const docData = timestamp ? { ...data, [timestamp]: serverTimestamp() } : data;
     const docRef = Array.isArray(path)
       ? doc(db, ...path, id)
       : doc(db, path, id);
@@ -97,7 +96,7 @@ export const updateDocuments = async (path, documents, timestamp = null) => {
     await runTransaction(db, async (transaction) => {
       documents.forEach((document) => {
         const docData = timestamp
-          ? { ...document, [timestamp]: getDate() }
+          ? { ...document, [timestamp]: serverTimestamp() }
           : document;
         const docRef = Array.isArray(path)
           ? doc(db, ...path, document.id || document.uid)
