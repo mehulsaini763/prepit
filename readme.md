@@ -1,5 +1,5 @@
 
-![Logo](https://mehulsaini.vercel.app/assets/prepit.png)
+![Logo](/public/screenshots/prepit_landscape.png)
 
 # **PrepIt**
 
@@ -124,11 +124,12 @@ Start the development server:
 npm start
 ```
 ## **Tech Stack**
-- **Frontend**: Next.js, React.js
-- **Backend**: Firebase
-- **UI**: Material-Tailwind
+- **Frontend**: React.js, Next.js, 
+- **Backend**: Node.js, Firebase
+- **UI**: Tailwind, Material-Tailwind
 - **PDF Generation**: React-PDF
-
+- **Mails**: ZeptoMail
+- **Payments**: PhonePe 
 
 ## Links
 
